@@ -7,7 +7,7 @@ const SearchBar = (props) => {
         <>
             <form onSubmit={handleSubmit}>
                 <input
-                placeholder="search"
+                placeholder="Search By City"
                 type="text">
                 </input>
                 <button>Search!</button>
