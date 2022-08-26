@@ -1,6 +1,7 @@
 import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
-import { useState, useEffect } from 'react';
+import WeatherCard from './containers/WeatherCard/WeatherCard';
+import { useState} from 'react';
 function App() {
 
   const [weatherInfo, setWeatherInfo] = useState();
@@ -14,20 +15,22 @@ function App() {
     })
     .then((data) => {
       setWeatherInfo(data);
-      console.log(data)
+    })
+    .catch(err => {
+      console.log("City not found")
     })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchTerm = event.target[0].value;
-    console.log(searchTerm);
     getWeatherInfo(searchTerm)
   }
 
   return (
     <div className="App">
       <SearchBar handleSubmit={handleSubmit}/>
+      {weatherInfo && <WeatherCard weatherInfo={weatherInfo} />}
     </div>
   );
 }
