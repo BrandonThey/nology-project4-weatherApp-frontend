@@ -84,6 +84,7 @@ function App() {
     <div className="App">
       <SearchBar handleSubmit={handleSubmit}/>
       {weatherInfo && <WeatherCard weatherInfo={weatherInfo} />}
+      {weatherInfo && oldWeatherInfo && <WeatherCard weatherInfo={oldWeatherInfo} />}
     </div>
   );
 }
