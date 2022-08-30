@@ -8,7 +8,38 @@ function App() {
   const [oldWeatherInfo, setOldWeatherInfo] = useState();
 
   const apiKey = "69d0a94339a676369beaced8ff6ac0d7";
+  let previousForecasts;
   
+  const convertTimezones = (offset) => {
+    //create new date object for current location
+    const time = new Date();
+    //convert offset to milliseconds
+    const numberedoffset = Number(offset) * 1000;
+    //convert to milliseconds and get UTC time by subtracting local time offset
+    const utc = time.getTime() + (time.getTimezoneOffset() * 60000);
+    //creating a new date object for different city using offset and returning it
+    return new Date(utc + numberedoffset)
+  }
+
+  const getWeekDay = (dayNumber) => {
+    switch(dayNumber){
+        case 0:
+            return "Sunday";
+        case 1:
+            return "Monday";
+        case 2:
+            return "Tuesday";
+        case 3:
+            return "Wednesday";
+        case 4:
+            return "Thursday";
+        case 5:
+            return "Friday";
+        default:
+            return "Saturday";
+    }
+}
+
   const getWeatherInfo = (searchTerm) => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`)
     .then((respone) => {
@@ -22,8 +53,8 @@ function App() {
     })
   }
 
-  const getOldWeathers = (cityID) => {
-    fetch(`http://localhost:3030/api/weathers/${cityID}`)
+  const getOldWeathers = (cityName) => {
+    fetch(`http://localhost:3030/api/weathers/${cityName}`)
     .then((response) => {
       return response.json();
     })
@@ -36,8 +67,11 @@ function App() {
   }
 
   const postNewWeather = (weatherInfoToPost) => {
+    const currentTime = convertTimezones(weatherInfoToPost.timezone);
+    const dateTimeString = 
+    `${currentTime.getHours()}:${currentTime.getMinutes()}, ${getWeekDay(currentTime.getDay())}`
     let weatherObject = {
-      "id": weatherInfoToPost.id,
+      "time": dateTimeString,
       "name": weatherInfoToPost.name,
       "weather_main": weatherInfoToPost.weather[0].main,
       "weather_icon": weatherInfoToPost.weather[0].icon,
@@ -71,20 +105,34 @@ function App() {
   useEffect(() => {
     console.log(weatherInfo);
     if(weatherInfo){
-      getOldWeathers(weatherInfo.id);
+      getOldWeathers(weatherInfo.name);
       postNewWeather(weatherInfo);
     }
   }, [weatherInfo]);
 
   useEffect(() => {
-    console.log(oldWeatherInfo);
-  },[oldWeatherInfo]);
+    if(oldWeatherInfo){
+
+      previousForecasts = oldWeatherInfo.map((oldWeather) => {
+        console.log(oldWeather)
+        return(
+          <>
+            {weatherInfo && oldWeatherInfo && <WeatherCard weatherInfo={oldWeather} convertTimezones={convertTimezones} getWeekDay={getWeekDay}/>}
+          </>
+        )
+        })
+  
+      console.log(previousForecasts);
+    }
+  }, [oldWeatherInfo])
 
   return (
     <div className="App">
       <SearchBar handleSubmit={handleSubmit}/>
-      {weatherInfo && <WeatherCard weatherInfo={weatherInfo} />}
-      {weatherInfo && oldWeatherInfo && <WeatherCard weatherInfo={oldWeatherInfo} />}
+      <h2>Current Forecast:</h2>
+      {weatherInfo && <WeatherCard weatherInfo={weatherInfo} convertTimezones={convertTimezones} getWeekDay={getWeekDay}/>}
+      <h2>Previous Forecasts:</h2>
+      {previousForecasts}
     </div>
   );
 }
