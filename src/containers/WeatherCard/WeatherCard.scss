@@ -1,16 +1,35 @@
+$primary-color: #19c3fb;
+$secondary-color: #1d71f2;
+
 .weather-cards{
-    margin: 10px;
-    margin-bottom: 0px;
-    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid $secondary-color;
     border-radius: 10px;
+    background-color: $primary-color;
+    h3{
+        padding: 0;
+        margin: 2px;
+    }
 }
 
 .high-low-info {
+    font-size: 18px;
     display: flex;
     justify-content: space-around;
+    p{
+        padding: 0;
+        margin: 12px;
+    }
 }
 
 .vis-humid-info {
-    display: flex;
-    justify-content: space-around;
+    p{
+        padding: 0;
+        margin: 2px;
+    }
+    font-size: 18px;
 }

@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './containers/WeatherCard/WeatherCard';
 import { useEffect, useState} from 'react';
@@ -129,9 +129,9 @@ function App() {
   return (
     <div className="App">
       <SearchBar handleSubmit={handleSubmit}/>
-      <h2>Current Forecast:</h2>
+      {weatherInfo && <h2>Current Forecast:</h2>}
       {weatherInfo && <WeatherCard weatherInfo={weatherInfo} convertTimezones={convertTimezones} getWeekDay={getWeekDay}/>}
-      <h2>Previous Forecasts:</h2>
+      {previousForecasts && <h2>Previous Forecasts:</h2>}
       {previousForecasts}
     </div>
   );
