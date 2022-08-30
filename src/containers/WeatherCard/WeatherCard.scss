@@ -1,0 +1,16 @@
+.weather-cards{
+    margin: 10px;
+    margin-bottom: 0px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.high-low-info {
+    display: flex;
+    justify-content: space-around;
+}
+
+.vis-humid-info {
+    display: flex;
+    justify-content: space-around;
+}

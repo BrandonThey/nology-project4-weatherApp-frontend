@@ -42,20 +42,20 @@ const WeatherCard = (props) => {
     const dateTimeString = 
     `${locationDateTime.getHours()}:${locationDateTime.getMinutes()}, ${getWeekDay(locationDateTime.getDay())}`
     return (
-        <>
+        <div className="weather-cards">
             <h2>{weatherInfo.name}, {dateTimeString}</h2>
             <h3>{currentTemp}{'\xB0'}</h3>
             <h3>{weatherInfo.weather[0].main}</h3>
             <img src={weatherInfo.weather[0].icon} alt="Weather icon" />
-            <div>
+            <div className="high-low-info">
                 <p>H: {highTemp}{'\xB0'}</p>
                 <p>L: {minTemp}{'\xB0'}</p>
             </div>
-            <div>
+            <div className="vis-humid-info">
                 <p>Visibility: {Math.round(weatherInfo.visibility/1609.34)} Miles</p>
                 <p>Humidity: {weatherInfo.main.humidity}%</p>
             </div>
-        </>
+        </div>
     )
 }
 
