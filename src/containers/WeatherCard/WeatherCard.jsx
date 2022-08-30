@@ -30,7 +30,8 @@ const WeatherCard = (props) => {
 
     return (
         <div className="weather-cards">
-            <h2>{weatherInfo.name}, {dateTimeString}</h2>
+            <h2>{weatherInfo.name}</h2>
+            <h2>{dateTimeString}</h2>
             <h3>{currentTemp}{'\xB0'}</h3>
             <h3>{weatherMain}</h3>
             <img src={`http://openweathermap.org/img/w/${weatherIcon}.png`} alt="Weather icon" />

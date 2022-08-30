@@ -2,14 +2,19 @@ $primary-color: #19c3fb;
 $secondary-color: #1d71f2;
 
 .weather-cards{
+    min-width: 70%;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     align-items: center;
     padding: 15px;
     border: 2px solid $secondary-color;
     border-radius: 10px;
     background-color: $primary-color;
+    h2{
+        padding: 0;
+        margin: 5px;
+    }
     h3{
         padding: 0;
         margin: 2px;

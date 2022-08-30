@@ -2,13 +2,17 @@ import './App.scss';
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './containers/WeatherCard/WeatherCard';
 import { useEffect, useState} from 'react';
+
+//TO DO
+//style search bar
+// handle improper search terms: ex searching for numbers
+// 
 function App() {
 
   const [weatherInfo, setWeatherInfo] = useState();
   const [oldWeatherInfo, setOldWeatherInfo] = useState();
-
+  const [previousForecasts, setPreviousForecasts] = useState();
   const apiKey = "69d0a94339a676369beaced8ff6ac0d7";
-  let previousForecasts;
   
   const convertTimezones = (offset) => {
     //create new date object for current location
@@ -113,16 +117,21 @@ function App() {
   useEffect(() => {
     if(oldWeatherInfo){
 
-      previousForecasts = oldWeatherInfo.map((oldWeather) => {
-        console.log(oldWeather)
+      const holder = oldWeatherInfo.slice(0).reverse().map((oldWeather) => {
         return(
           <>
             {weatherInfo && oldWeatherInfo && <WeatherCard weatherInfo={oldWeather} convertTimezones={convertTimezones} getWeekDay={getWeekDay}/>}
           </>
         )
-        })
-  
-      console.log(previousForecasts);
+      })
+
+      if(holder.length > 5){
+        console.log(holder.length);
+        setPreviousForecasts(holder.slice(0,5))
+      }
+      else{
+        setPreviousForecasts(holder);
+      }
     }
   }, [oldWeatherInfo])
 
