@@ -1,0 +1,14 @@
+$background-color: #fffae0;
+form{
+    input{
+        background-color: $background-color;
+        height: 25px;   
+    }
+    button{
+        background-color: $background-color;
+        height: 30px;
+    }
+    button:hover{
+        cursor: pointer;
+    }
+}

@@ -1,6 +1,5 @@
 $primary-color: #19c3fb;
 $secondary-color: #1d71f2;
-
 .weather-cards{
     min-width: 70%;
     margin-bottom: 20px;
@@ -12,27 +11,36 @@ $secondary-color: #1d71f2;
     border-radius: 10px;
     background-color: $primary-color;
     h2{
+        background-color: $primary-color;
         padding: 0;
         margin: 5px;
     }
     h3{
+        background-color: $primary-color;
         padding: 0;
         margin: 2px;
+    }
+    img{
+        background-color: $primary-color;
     }
 }
 
 .high-low-info {
+    background-color: $primary-color;
     font-size: 18px;
     display: flex;
     justify-content: space-around;
     p{
+        background-color: $primary-color;
         padding: 0;
         margin: 12px;
     }
 }
 
 .vis-humid-info {
+    background-color: $primary-color;
     p{
+        background-color: $primary-color;
         padding: 0;
         margin: 2px;
     }

@@ -4,9 +4,9 @@ import WeatherCard from './containers/WeatherCard/WeatherCard';
 import { useEffect, useState} from 'react';
 
 //TO DO
-//style search bar
 // handle improper search terms: ex searching for numbers
-// 
+// add responsiveness
+//ask ash about how to upload the api to github
 function App() {
 
   const [weatherInfo, setWeatherInfo] = useState();
@@ -87,8 +87,6 @@ function App() {
       "timezone": weatherInfoToPost.timezone
     }
 
-    console.log(weatherObject);
-
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -107,7 +105,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(weatherInfo);
     if(weatherInfo){
       getOldWeathers(weatherInfo.name);
       postNewWeather(weatherInfo);
@@ -126,7 +123,6 @@ function App() {
       })
 
       if(holder.length > 5){
-        console.log(holder.length);
         setPreviousForecasts(holder.slice(0,5))
       }
       else{
@@ -137,6 +133,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>My Weather App!</h1>
       <SearchBar handleSubmit={handleSubmit}/>
       {weatherInfo && <h2>Current Forecast:</h2>}
       {weatherInfo && <WeatherCard weatherInfo={weatherInfo} convertTimezones={convertTimezones} getWeekDay={getWeekDay}/>}
