@@ -4,7 +4,6 @@ import WeatherCard from './containers/WeatherCard/WeatherCard';
 import { useEffect, useState} from 'react';
 
 //TO DO
-// handle improper search terms: ex searching for numbers
 // add responsiveness
 //ask ash about how to upload the api to github
 function App() {
@@ -50,10 +49,12 @@ function App() {
       return respone.json();
     })
     .then((data) => {
-      setWeatherInfo(data);
-    })
-    .catch(err => {
-      console.log("City not found");
+      if(data.hasOwnProperty("message")){
+        alert("City not found");
+      }
+      else{
+        setWeatherInfo(data);
+      }
     })
   }
 
