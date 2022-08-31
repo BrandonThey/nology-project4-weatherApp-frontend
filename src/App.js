@@ -123,8 +123,8 @@ function App() {
         )
       })
 
-      if(holder.length > 5){
-        setPreviousForecasts(holder.slice(0,5))
+      if(holder.length > 6){
+        setPreviousForecasts(holder.slice(0,6))
       }
       else{
         setPreviousForecasts(holder);
@@ -139,7 +139,9 @@ function App() {
       {weatherInfo && <h2>Current Forecast:</h2>}
       {weatherInfo && <WeatherCard weatherInfo={weatherInfo} convertTimezones={convertTimezones} getWeekDay={getWeekDay}/>}
       {previousForecasts && <h2>Previous Forecasts:</h2>}
-      {previousForecasts}
+      <div className='previous-forecasts'>
+        {previousForecasts}
+      </div>
     </div>
   );
 }

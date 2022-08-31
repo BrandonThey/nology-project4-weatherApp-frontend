@@ -46,3 +46,12 @@ $secondary-color: #1d71f2;
     }
     font-size: 18px;
 }
+
+@media screen and (min-width:1024px){
+    .weather-cards{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      min-width: 30%;
+    }
+  }
