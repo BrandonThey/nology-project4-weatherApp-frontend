@@ -3,16 +3,18 @@ import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './containers/WeatherCard/WeatherCard';
 import { useEffect, useState} from 'react';
 
-//TO DO
-// add responsiveness
-//ask ash about how to upload the api to github
 function App() {
 
+  //Creating use states for the weather information fetched from the openweathermap api, 
+  //old weather information, fetched from my api thats linked to my mysql database
+  //and for previous forecasts, a trimmed down version of old weather info
   const [weatherInfo, setWeatherInfo] = useState();
   const [oldWeatherInfo, setOldWeatherInfo] = useState();
   const [previousForecasts, setPreviousForecasts] = useState();
+  //my api key obtained from openweathermap
   const apiKey = "69d0a94339a676369beaced8ff6ac0d7";
   
+  //function that converts the current time to different location's timezone based on openweathermap's stored timezone offset
   const convertTimezones = (offset) => {
     //create new date object for current location
     const time = new Date();
@@ -24,6 +26,7 @@ function App() {
     return new Date(utc + numberedoffset)
   }
 
+  //a simple function that gets the weekday as a string based on the current numbered day from dateTime library
   const getWeekDay = (dayNumber) => {
     switch(dayNumber){
         case 0:
@@ -43,6 +46,7 @@ function App() {
     }
 }
 
+  //fetching openweathermap weather information based on the user inputted city
   const getWeatherInfo = (searchTerm) => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`)
     .then((respone) => {
@@ -58,6 +62,7 @@ function App() {
     })
   }
 
+  //fetching my stored weather information based on the user inputted city
   const getOldWeathers = (cityName) => {
     fetch(`http://localhost:3030/api/weathers/${cityName}`)
     .then((response) => {
@@ -71,10 +76,14 @@ function App() {
     })
   }
 
+  //posting a new weather object to my api to be stored in the mysql database
   const postNewWeather = (weatherInfoToPost) => {
+    //first gets the current time of the location by converting my CST time to the locations time
     const currentTime = convertTimezones(weatherInfoToPost.timezone);
+    //formatting the date and time into a easily readible string
     const dateTimeString = 
     `${currentTime.getHours()}:${currentTime.getMinutes()}, ${getWeekDay(currentTime.getDay())}`
+    //forming the weather object based on information that is required for the app
     let weatherObject = {
       "time": dateTimeString,
       "name": weatherInfoToPost.name,
@@ -88,6 +97,7 @@ function App() {
       "timezone": weatherInfoToPost.timezone
     }
 
+    //forming a post request json document and posting with it
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -99,12 +109,14 @@ function App() {
     .catch(err => console.log(err))
   }
 
+  //function that handles the user submitted city name by calling the api fetch function
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchTerm = event.target[0].value;
     getWeatherInfo(searchTerm)
   }
 
+  //every time that weatherInfo is updated we want to retrieve any previous information and post that new weatherinformation to the api/database 
   useEffect(() => {
     if(weatherInfo){
       getOldWeathers(weatherInfo.name);
@@ -112,6 +124,7 @@ function App() {
     }
   }, [weatherInfo]);
 
+  //every time that oldWeatherInfo is updated we map it to form html elements and trim down any excess weather information
   useEffect(() => {
     if(oldWeatherInfo){
 

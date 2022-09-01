@@ -1,12 +1,18 @@
 import "./WeatherCard.scss";
 
 const WeatherCard = (props) => {
+    //deconstruction variables and functions that were passed in
     const {weatherInfo, convertTimezones, getWeekDay} = props
+    //declaring variables to be used for the weather card
     let highTemp, currentTemp, minTemp, weatherMain, weatherIcon, humidity, locationDateTime, dateTimeString;
+    
+    //a function that takes the api's weather temperatures and converts it from kelvin to fahrenheit
     const convertKelvinToFahrenheit = (temp) => {
         return Math.round((temp - 273.15) * (9/5) + 32);
     }
 
+    //testing if we're getting openweathermap's information or my api's information by testing the object's formatting
+    //either way we break down the info into variables for easy displaying based on the different formatting
     if(weatherInfo.main){
         highTemp = convertKelvinToFahrenheit(weatherInfo.main.temp_max)
         currentTemp = convertKelvinToFahrenheit(weatherInfo.main.temp)

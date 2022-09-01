@@ -2,6 +2,7 @@ import "./SearchBar.scss";
 
 const SearchBar = (props) => {
 
+    //simple search bar input and button form
     const {handleSubmit} = props;
     return(
         <>
