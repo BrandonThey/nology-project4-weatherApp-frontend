@@ -1,3 +1,19 @@
+This is a React website as a beginner project.
+
+Description: I created a basic website that displays weather information that has been fetched from OpenWeatherMap API and stores the caches the weather in a secondary API that I made.  It is meant to be used in tandem with the nology-project4-weatherApp-backend repository: https://github.com/BrandonThey/nology-project4-weatherApp-backend.git.
+This project was to practice and implement new skills in React, which was done through the use of React components and containers, useStates, and fetching from APIs.
+
+How to install and run the project:
+
+1. Fork both this repository and the backend repository found here: https://github.com/BrandonThey/nology-project4-weatherApp-backend.git.
+2. Clone both forked repositories
+3. Open up the backend repository and install all dependencies using npm install.
+4. Start the backend project using npm run watch, this will start up an API that listens on port 3030 for any queries.
+5. Open up the frontend repository and install all dependencies using npm install.
+6.  Run the project using npm start
+7. Explore around
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
